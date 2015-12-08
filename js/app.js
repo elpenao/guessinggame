@@ -19,31 +19,35 @@ function playersGuessSubmission(){
 	if (totalGuesses < 5) {
 		// get the input value
 		guess = $('#guess').val();
-		// if the number has already been guessed
-		if ($.inArray(guess, guessList) > -1) {
-			$('#silly').show();
-		} else {
-			// store the new guess in the array
-			guessList.push(guess);
-			guesses = guessList.join(',');
-			$('.panel-footer').text(guesses);
+		// if its a valid guess
+		if (guess > 1 && guess < 101) {
+			// if the number has already been guessed
+			if ($.inArray(guess, guessList) > -1) {
+				$('#silly').show();
+			} else {
+				// store the new guess in the array
+				guessList.push(guess);
+				guesses = guessList.join(',');
+				$('.panel-footer').text(guesses);
 
-			//check if its right
-			checkGuess(guess);
+				//check if its right
+				checkGuess(guess);
 
-			//calculate the total guesses update badge
-			totalGuesses++
-			$('.badge').text(5 - totalGuesses);
-			//set the width of the progress bar
-			var width = '';
-			percent = totalGuesses/5 * 100;
-			width = percent + '%';
-			$('.progress-bar').width(width);
-			if (totalGuesses === 5){
-				$('#runout').show();
+				//calculate the total guesses update badge
+				totalGuesses++
+				$('.badge').text(5 - totalGuesses);
+				//set the width of the progress bar
+				var width = '';
+				percent = totalGuesses/5 * 100;
+				width = percent + '%';
+				$('.progress-bar').width(width);
+				if (totalGuesses === 5){
+					$('#runout').show();
+				}
 			}
-		}
-		
+		} else	{
+			$('#badguess').show();
+		}		
 	} else {
 		$('#runout').show();
 	}
