@@ -1,19 +1,12 @@
 /* **** Guessing Game Functions **** */
 
+// Generate the Winning Number and other variables
 
-var guess,
-    winningNumber,
-    totalGuesses = 0,
-    guessList = [],
-    guesses = '';
-
-// Generate the Winning Number
-
-function generateWinningNumber(){
-	// add code here
-	var max = 100;
-	var min = 1;
-	winningNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+function initiateGame(){
+	this.winningNumber = Math.floor(Math.random() * 100) + 1;
+	this.totalGuesses = 0;
+	this.guessList = [];
+	this.guesses = '';
 	return;
 }
 
@@ -25,7 +18,7 @@ function playersGuessSubmission(){
 	// do they have guesses remaining?
 	if (totalGuesses < 5) {
 		// get the input value
-		var guess = $('#guess').val();
+		guess = $('#guess').val();
 		// if the number has already been guessed
 		if ($.inArray(guess, guessList) > -1) {
 			$('#silly').show();
@@ -36,7 +29,7 @@ function playersGuessSubmission(){
 			$('.panel-footer').text(guesses);
 
 			//check if its right
-			$(checkGuess(guess));
+			checkGuess(guess);
 
 			//calculate the total guesses update badge
 			totalGuesses++
@@ -65,10 +58,21 @@ function lowerOrHigher(num){
 	var absDiff = Math.abs(winningNumber - num);
 	// if winning number is higher
 	if ( diff > 0) {
+		if (absDiff > 20) {
+			$('#higher').text('Nope its higher by a lot');
+		} else {
+			$('#higher').text('Nope its higher by a lil');
+		}
 		$('#higher').show();
 	} else {
+		if (absDiff > 20) {
+			$('#lower').text('Nope its lower by a lot');
+		} else {
+			$('#lower').text('Nope its lower by a lil');
+		}
 		$('#lower').show();
 	}
+	$('#guess').val('');
 }
 
 // Check if the Player's Guess is the winning number 
@@ -76,8 +80,12 @@ function lowerOrHigher(num){
 function checkGuess(num){
 	// add code here
 	if (num == winningNumber) {
-		$('.alert-success').show();
-		$("#myModal").modal();
+		// load the giff
+		$('.modal-body').html('<iframe src="http://giphy.com/embed/xNBcChLQt7s9a" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>');
+		$("#myModal").modal({
+			backdrop: 'static',
+  			keyboard: false
+		});
 	} else {
 		lowerOrHigher(num);
 	}
@@ -93,23 +101,21 @@ function showHint(){
 
 function playAgain(){
 	// simply refresh the page
-	location.reload();
+	// location.reload();
 	// or reset everything
-	// $(generateWinningNumber);
-	// $('.alert').hide();
-	// totalGuesses = 0;
-	// guessList = [];
-	// $('.progress-bar').width('0%');
-	// $('.badge').text(5);
-	// $('.panel-footer').text('');
-	// $('#guess').val('');
+	initiateGame();
+	$('.alert').hide();
+	$('.progress-bar').width('0%');
+	$('.badge').text(5);
+	$('.panel-footer').text('');
+	$('#guess').val('');
 }
 
 
 
 /* **** Event Listeners/Handlers ****  */
 $( document ).ready(function() {
-   	$(generateWinningNumber);
+   	initiateGame();
 });
 
 $( '#go' ).on( 'click', playersGuessSubmission );
@@ -117,9 +123,7 @@ $( '.play-again' ).on( 'click', playAgain );
 $( '#hint-btn' ).on( 'click', showHint );
 
 $('input').bind("enterKey",function(e){
-   //do stuff here
    $(playersGuessSubmission);
-
 });
 $('input').keyup(function(e){
     if(e.keyCode == 13)
