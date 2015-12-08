@@ -23,45 +23,58 @@
       <div class="row">
           <div class="col-lg-12">
             <h1>Hello, world! Welcome to the guessing game</h1>
-            <h4>Guess a number between 1-100. Stumped? Give me a <button type="button" class="btn btn-info">HINT</button></h4>
-            <div class="alert alert-info alert-dismissible" id="hintBox" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Okay...here is your hint [50]</div>
+            <h4>Guess a number between 1-100. Stumped? Give me a <button id='hint-btn' type="button" class="btn btn-info">HINT</button></h4>
+            <div class="alert alert-info alert-dismissible" id="hintBox" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Okay...why not try <span id='answer'></span></div>
           </div>
         </div>
       <div class="row">
         <div class="col-lg-6">
           <div class="input-group">
             <span class="input-group-btn">
-              <button class="btn btn-success" type="button" id="go">Go! <span class="badge">0</span></button>
+              <button class="btn btn-success" type="button" id="go">Go!</button>
             </span>
             <input id="guess" type="number" min="1" max="100" class="form-control" placeholder="Input your guess here">
           </div><!-- /input-group -->
           <br>
-          <div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>You got it right! <iframe src="http://giphy.com/embed/xNBcChLQt7s9a" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="http://giphy.com/gifs/win-xNBcChLQt7s9a">via GIPHY</a></p></div>
+          
           <div id="higher" class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Nope guess higher</div>
           <div id="lower" class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Nope guess lower</div>
           <div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Nope guess higher only 1 more guess</div>
-          <div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Nope you already guessed that silly.</div> 
-          <div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Uh oh you are out of guesses! <a href="#" class="alert-link">Restart</a></div>
+          <div id="silly" class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Nope you already guessed that silly.</div> 
+          <div id="runout" class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Uh oh you are out of guesses! <a href="#" class="alert-link play-again">Restart</a></div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-6">
             <div class="progress" height="50px;">
               <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="3"
               aria-valuemin="0" aria-valuemax="5" style="width:0%;">
-                <p style="font-size: 16px; line-height: 34px;">Don't Run out of Guesses</p>
+                <p style="font-size: 16px; line-height: 34px;"></p>
               </div>
             </div>
             <div class="panel panel-info">
-              <div class="panel-body">Here are your previous guesses</div>
-              <div class="panel-footer">1,2,3 </div>
+              <div class="panel-body"><span class="badge">5</span> Guesses remain. Here are your previous guesses</div>
+              <div class="panel-footer"></div>
             </div>
         </div><!-- /.col-lg-6 -->
       </div><!-- /.row -->
-      <div class="row">
-        <div class="col-lg-6">
-                  </div>
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4>You got it right!</h4>
+            </div>
+            <div class="modal-body">
+              <iframe src="http://giphy.com/embed/xNBcChLQt7s9a" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+            </div>
+            <div class="modal-footer">
+              <button class="play-again  btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-thumbs-up"></span> Play Again!</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
