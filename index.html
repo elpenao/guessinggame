@@ -41,7 +41,7 @@
           <div id="lower" class="alert alert-warning" role="alert">Nope guess lower</div>
           <div class="alert alert-danger" role="alert">Nope guess higher only 1 more guess</div>
           <div id="silly" class="alert alert-danger" role="alert">Nope you already guessed that silly.</div> 
-          <div id="runout" class="alert alert-danger" role="alert">Uh oh you are out of guesses! <a href="#" class="alert-link play-again">Restart</a></div>
+          <div id="runout" class="alert alert-danger" role="alert">Uh oh you are out of guesses! <a href="#" class="alert-link" id="restart">Restart</a></div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-6">
             <div class="progress" height="50px;">
@@ -61,7 +61,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h4>You got it right!</h4>
-              <button class="play-again btn btn-info pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-thumbs-up"></span> Play Again!</button>
+              <button id="play-again" class="btn btn-info pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-thumbs-up"></span> Play Again!</button>
             </div>
             <div class="modal-body">
             </div>

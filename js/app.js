@@ -1,18 +1,19 @@
 /* **** Guessing Game Functions **** */
-
 // Generate the Winning Number and other variables
-
+// var game = new initiateGame();
+// InitiateGame.prototype.playersGuesssubmission
+// (function(){})() IIFE
 function initiateGame(){
+	debugger;
 	var winningNumber = Math.floor((Math.random() * 100) + 1);
 	var totalGuesses = 0;
 	var guessList = [];
-	var guesses = '';
 	var guess = 0;
 	console.log('game initiated');
 	// Fetch the Players Guess
 
 	function playersGuessSubmission(){
-		console.log('playersGuessSubmission');
+		console.log('playersGuessSubmission ran');
 		// hide all alerts
 		$('.alert').hide();
 		// do they have guesses remaining?
@@ -20,7 +21,7 @@ function initiateGame(){
 			// get the input value
 			guess = $('#guess').val();
 			// if its a valid guess
-			console.log(guess);
+			console.log('guess = ' + guess);
 			if (guess > 0 && guess < 101) {
 				console.log('valid');
 				// if the number has already been guessed
@@ -29,14 +30,11 @@ function initiateGame(){
 				} else {
 					// store the new guess in the array
 					guessList.push(guess);
-					guesses = guessList.join(',');
-					$('.panel-footer').text(guesses);
-
+					$('.panel-footer').text(guessList.join(','));
 					//check if its right
 					checkGuess(guess);
-
 					//calculate the total guesses update badge
-					totalGuesses++
+					totalGuesses++;
 					$('.badge').text(5 - totalGuesses);
 					//set the width of the progress bar
 					var width = '';
@@ -48,17 +46,18 @@ function initiateGame(){
 					}
 				}
 			} else	{
-				console.log("hey");
+				console.log("its a badguess");
 				$('#badguess').show();
 			}		
 		} else {
 			$('#runout').show();
 		}
-	};
+	}
 	// Determine if the next guess should be a lower or higher number
 
 	function lowerOrHigher(num){
 		// add code here
+		console.log('lowerOrHigher ran');
 		var diff = winningNumber - num;
 		var absDiff = Math.abs(winningNumber - num);
 		// if winning number is higher
@@ -83,13 +82,12 @@ function initiateGame(){
 
 	function checkGuess(num){
 		// add code here
+		console.log('checkGuess ran');
 		if (num == winningNumber) {
 			// load the giff
 			$('.modal-body').html('<iframe src="http://giphy.com/embed/xNBcChLQt7s9a" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>');
 			$("#myModal").modal({
 				// dont let users click or key off modal
-				backdrop: 'static',
-	  			keyboard: false
 			});
 		} else {
 			lowerOrHigher(num);
@@ -117,24 +115,27 @@ function initiateGame(){
 }
 
 function playAgain(){
-		// simply refresh the page
-		// location.reload();
-		// or reset everything
-		initiateGame();
-		$('.alert').hide();
-		$('.progress-bar').width('100%');
-		$('.badge').text(5);
-		$('.panel-footer').text('');
-		$('#guess').val('');
+	// simply refresh the page
+	// location.reload();
+	// or reset everything
+	initiateGame();
+	$('.alert').hide();
+	$('.progress-bar').width('100%');
+	$('.badge').text(5);
+	$('.panel-footer').text('');
+	$('#guess').val('');
+	$('#myModal').modal('hide');
+	$('.modal-body').html('');
 }
 
 /* **** Event Listeners/Handlers ****  */
 $(document).ready(function() {
    	initiateGame();
+   	$( '#play-again' ).on( 'click', playAgain );
+   	$( '#restart' ).on( 'click', playAgain );
 });
 
-// reset the game
-$( '.play-again' ).on( 'click', playAgain );
+// reset the game from restart link or play again button
 
 
 
