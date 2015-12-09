@@ -3,7 +3,7 @@
 // Generate the Winning Number and other variables
 
 function initiateGame(){
-	this.winningNumber = Math.floor(Math.random() * 100) + 1;
+	this.winningNumber = Math.floor(Math.random() * 100) + 1);
 	this.totalGuesses = 0;
 	this.guessList = [];
 	this.guesses = '';
@@ -118,7 +118,7 @@ function playAgain(){
 
 
 /* **** Event Listeners/Handlers ****  */
-$( document ).ready(function() {
+$(document).ready(function() {
    	initiateGame();
 });
 
