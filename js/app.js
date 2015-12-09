@@ -123,10 +123,16 @@ $(document).ready(function() {
    	initiateGame();
 });
 
+// listen for a button click
 $( '#go' ).on( 'click', playersGuessSubmission );
+
+// reset the game
 $( '.play-again' ).on( 'click', playAgain );
+
+// show the hint
 $( '#hint-btn' ).on( 'click', showHint );
 
+// listen for the enter key
 $( 'input' ).on('keyup',function( event ) {
 	if ( event.which == 13 ) {
 	    $(playersGuessSubmission);
