@@ -20,7 +20,7 @@ function playersGuessSubmission(){
 		// get the input value
 		guess = $('#guess').val();
 		// if its a valid guess
-		if (guess > 1 && guess < 101) {
+		if (guess > 0 && guess < 101) {
 			// if the number has already been guessed
 			if ($.inArray(guess, guessList) > -1) {
 				$('#silly').show();
@@ -39,7 +39,7 @@ function playersGuessSubmission(){
 				//set the width of the progress bar
 				var width = '';
 				percent = totalGuesses/5 * 100;
-				width = percent + '%';
+				width = 100 - percent + '%';
 				$('.progress-bar').width(width);
 				if (totalGuesses === 5){
 					$('#runout').show();
@@ -87,6 +87,7 @@ function checkGuess(num){
 		// load the giff
 		$('.modal-body').html('<iframe src="http://giphy.com/embed/xNBcChLQt7s9a" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>');
 		$("#myModal").modal({
+			// dont let users click or key off modal
 			backdrop: 'static',
   			keyboard: false
 		});
@@ -109,7 +110,7 @@ function playAgain(){
 	// or reset everything
 	initiateGame();
 	$('.alert').hide();
-	$('.progress-bar').width('0%');
+	$('.progress-bar').width('100%');
 	$('.badge').text(5);
 	$('.panel-footer').text('');
 	$('#guess').val('');
@@ -126,12 +127,11 @@ $( '#go' ).on( 'click', playersGuessSubmission );
 $( '.play-again' ).on( 'click', playAgain );
 $( '#hint-btn' ).on( 'click', showHint );
 
-$('input').bind("enterKey",function(e){
-   $(playersGuessSubmission);
+$( 'input' ).on('keyup',function( event ) {
+	if ( event.which == 13 ) {
+	    $(playersGuessSubmission);
+	}
 });
-$('input').keyup(function(e){
-    if(e.keyCode == 13)
-    {
-        $(this).trigger("enterKey");
-    }
-});
+ 
+
+
