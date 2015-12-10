@@ -8,7 +8,6 @@ var InitiateGame = function(){
 	this.totalGuesses = 0;
 	this.guessList = [];
 	this.guess = 0;
-	console.log('game initiated');
 	// Fetch the Players Guess
 	return;
 }
@@ -111,7 +110,7 @@ InitiateGame.prototype.playAgain = function (){
 	// location.reload();
 	// or reset everything
 	console.log('playAgain ran');
-	console.log(game);
+	console.log(this);
 	game.winningNumber = Math.floor((Math.random() * 100) + 1);
 	game.totalGuesses = 0;
 	game.guessList = [];
@@ -128,7 +127,11 @@ InitiateGame.prototype.playAgain = function (){
 
 /* **** Event Listeners/Handlers ****  */
    	// listen for a button click
-    $( '#go' ).on( 'click', game.playersGuessSubmission );
+    $( '#go' ).click( function( event ) {
+		if ( event.which == 1 ) {
+		    game.playersGuessSubmission();
+		}
+	});
 
 	// show the hint
 	$( '#hint-btn' ).on( 'click', game.showHint );
@@ -136,11 +139,10 @@ InitiateGame.prototype.playAgain = function (){
 	// listen for the enter key
 	$( 'input' ).on('keyup',function( event ) {
 		if ( event.which == 13 ) {
-			console.log('enter key');
 		    game.playersGuessSubmission();
 		}
 	});
-   	$( '#play-again' ).on( 'click', game.playAgain );
+   	$( '#play-again' ).click( game.playAgain );
    	$( '#restart' ).on( 'click', game.playAgain  );
 	
 
